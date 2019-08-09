@@ -2,18 +2,18 @@
 jobs:
 - name: build
   plan:
-  - get: bookshelf
+  - get: bookshelf-api
     trigger: true
   - get: resource-gist-dev
   - task: build-task
-    file: bookshelf/build-task/task.yml
+    file: bookshelf-api/build-task/task.yml
   - put: resource-gist-dev
     params:
       repository: updated-gist
       force: true
 - name: push-to-dev
   plan:
-  - get: bookshelf
+  - get: bookshelf-api
   - get: resource-gist-dev
     trigger: true
     passed:
@@ -22,16 +22,16 @@ jobs:
     params:
       command: zero-downtime-push
       space: development
-      manifest: bookshelf/manifest.yml
-      path: resource-gist-dev/bookshelf.zip
-      current_app_name: bookshelf
+      manifest: bookshelf-api/manifest.yml
+      path: resource-gist-dev/bookshelf-api.zip
+      current_app_name: bookshelf-api
   - put: resource-gist-staging
     params:
       repository: resource-gist-dev
       force: true
 - name: push-to-staging
   plan:
-  - get: bookshelf
+  - get: bookshelf-api
   - get: resource-gist-staging
     trigger: false
     passed:
@@ -40,16 +40,16 @@ jobs:
     params:
       command: zero-downtime-push
       space: staging
-      manifest: bookshelf/manifest-staging.yml
-      path: resource-gist-staging/bookshelf.zip
-      current_app_name: bookshelf
+      manifest: bookshelf-api/manifest-staging.yml
+      path: resource-gist-staging/bookshelf-api.zip
+      current_app_name: bookshelf-api
   - put: resource-gist-prod
     params:
       repository: resource-gist-staging
       force: true
 - name: push-to-prod
   plan:
-  - get: bookshelf
+  - get: bookshelf-api
   - get: resource-gist-prod
     trigger: false
     passed:
@@ -58,9 +58,9 @@ jobs:
     params:
       command: zero-downtime-push
       space: production
-      manifest: bookshelf/manifest-prod.yml
-      path: resource-gist-prod/bookshelf.zip
-      current_app_name: bookshelf
+      manifest: bookshelf-api/manifest-prod.yml
+      path: resource-gist-prod/bookshelf-api.zip
+      current_app_name: bookshelf-api
 
 resource_types:
 - name: cf-cli-resource
@@ -99,7 +99,7 @@ resources:
     branch: master
     private_key: ((git_key))
 
-- name: bookshelf
+- name: bookshelf-api
   type: git
   source:
     uri:  ((git_uri))
