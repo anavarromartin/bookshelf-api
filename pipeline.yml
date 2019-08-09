@@ -1,0 +1,107 @@
+---
+jobs:
+- name: build
+  plan:
+  - get: bookshelf
+    trigger: true
+  - get: resource-gist-dev
+  - task: build-task
+    file: task.yml
+  - put: resource-gist-dev
+    params:
+      repository: updated-gist
+      force: true
+- name: push-to-dev
+  plan:
+  - get: bookshelf
+  - get: resource-gist-dev
+    trigger: true
+    passed:
+      - build
+  - put: cf
+    params:
+      command: zero-downtime-push
+      space: development
+      manifest: bookshelf/manifest.yml
+      path: resource-gist-dev/bookshelf.zip
+      current_app_name: bookshelf
+  - put: resource-gist-staging
+    params:
+      repository: resource-gist-dev
+      force: true
+- name: push-to-staging
+  plan:
+  - get: bookshelf
+  - get: resource-gist-staging
+    trigger: false
+    passed:
+      - push-to-dev
+  - put: cf
+    params:
+      command: zero-downtime-push
+      space: staging
+      manifest: bookshelf/manifest-staging.yml
+      path: resource-gist-staging/bookshelf.zip
+      current_app_name: bookshelf
+  - put: resource-gist-prod
+    params:
+      repository: resource-gist-staging
+      force: true
+- name: push-to-prod
+  plan:
+  - get: bookshelf
+  - get: resource-gist-prod
+    trigger: false
+    passed:
+      - push-to-staging
+  - put: cf
+    params:
+      command: zero-downtime-push
+      space: production
+      manifest: bookshelf/manifest-prod.yml
+      path: resource-gist-prod/bookshelf.zip
+      current_app_name: bookshelf
+
+resource_types:
+- name: cf-cli-resource
+  type: docker-image
+  source:
+    repository: nulldriver/cf-cli-resource
+    tag: latest
+
+resources:
+- name: cf
+  type: cf-cli-resource
+  source:
+    api: https://api.run.pcfone.io
+    username: ((cf_username))
+    password: ((cf_password))
+    org: pivot-acourter
+
+- name: resource-gist-dev
+  type: git
+  source:
+    uri: git@gist.github.com:7b6487f29e53c1385a563592d587000c.git
+    branch: master
+    private_key: ((git_key))
+
+- name: resource-gist-prod
+  type: git
+  source:
+    uri: git@gist.github.com:c19be5d1b681686d2ba0d4892962998d.git
+    branch: master
+    private_key: ((git_key))
+
+- name: resource-gist-staging
+  type: git
+  source:
+    uri: git@gist.github.com:6da5cab499e9c376f0305c47e46271d6.git
+    branch: master
+    private_key: ((git_key))
+
+- name: bookshelf
+  type: git
+  source:
+    uri:  ((git_uri))
+    branch: master
+    private_key: ((git_key))
