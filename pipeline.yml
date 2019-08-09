@@ -76,7 +76,7 @@ resources:
     api: https://api.run.pcfone.io
     username: ((cf_username))
     password: ((cf_password))
-    org: pivot-acourter
+    org: pivot-anavarromartin
 
 - name: resource-gist-dev
   type: git

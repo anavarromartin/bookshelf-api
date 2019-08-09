@@ -10,5 +10,11 @@
         <property name="enable_load_extension" value="true" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="librarian@localhost" uuid="b16f909e-1020-4670-9897-53c0e4af776b">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost/librarian</jdbc-url>
+    </data-source>
   </component>
 </project>
