@@ -5,7 +5,7 @@ image_resource:
   source: {repository: okdocker/pynode}
 
 inputs:
-- name: bookshelf
+- name: bookshelf-api
 - name: resource-gist-dev
 
 outputs:
