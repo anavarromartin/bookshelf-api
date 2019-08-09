@@ -22,7 +22,7 @@ jobs:
     params:
       command: zero-downtime-push
       space: development
-      manifest: bookshelf-api/manifest.yml
+      manifest: bookshelf-api/manifests/manifest.yml
       path: resource-gist-dev/bookshelf-api.zip
       current_app_name: bookshelf-api
   - put: resource-gist-staging
@@ -40,7 +40,7 @@ jobs:
     params:
       command: zero-downtime-push
       space: staging
-      manifest: bookshelf-api/manifest-staging.yml
+      manifest: bookshelf-api/manifests/manifest-staging.yml
       path: resource-gist-staging/bookshelf-api.zip
       current_app_name: bookshelf-api
   - put: resource-gist-prod
@@ -58,7 +58,7 @@ jobs:
     params:
       command: zero-downtime-push
       space: production
-      manifest: bookshelf-api/manifest-prod.yml
+      manifest: bookshelf-api/manifests/manifest-prod.yml
       path: resource-gist-prod/bookshelf-api.zip
       current_app_name: bookshelf-api
 
