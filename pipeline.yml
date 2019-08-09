@@ -6,7 +6,7 @@ jobs:
     trigger: true
   - get: resource-gist-dev
   - task: build-task
-    file: task.yml
+    file: bookshelf/build-task/task.yml
   - put: resource-gist-dev
     params:
       repository: updated-gist

@@ -1,0 +1,15 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: okdocker/pynode}
+
+inputs:
+- name: bookshelf
+- name: resource-gist-dev
+
+outputs:
+- name: updated-gist
+
+run:
+  path: bookshelf-api/build-task/task.sh
