@@ -39,7 +39,7 @@ flask test
 #
 #cd ../..
 
-cd ..
+#cd ..
 
 cp -rf ../resource-gist-dev/.git ../updated-gist/.git
 zip -r ../bookshelf-api.zip .

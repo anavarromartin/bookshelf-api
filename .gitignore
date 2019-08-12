@@ -1,3 +1,4 @@
+.DS_Store
 pipeline-secrets.yml
 
 # Created by https://www.gitignore.io/api/macos,python,intellij
