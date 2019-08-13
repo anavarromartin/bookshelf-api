@@ -5,7 +5,7 @@ set -ex
 apt-get update -y
 apt-get install zip sqlite3 libsqlite3-dev -y
 
-cd bookshelf-api/web_app
+cd bookshelf-api
 
 pip install -r requirements.txt
 
@@ -39,15 +39,11 @@ flask test
 #
 #cd ../..
 
-cd ..
-
 cp -rf ../resource-gist-dev/.git ../updated-gist/.git
 
-cd web_app
+zip -r ../bookshelf-api.zip .
 
-zip -r ../../bookshelf-api.zip .
-
-cd ../..
+cd ..
 
 mv bookshelf-api.zip updated-gist
 
