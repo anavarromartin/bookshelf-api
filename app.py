@@ -5,7 +5,7 @@ from flask_jwt_extended import JWTManager
 from web_app import create_app
 
 env = os.environ.get('WEBAPP_ENV', 'dev')
-app = create_app('web_app.config.%sConfig' % env.capitalize())
+app = create_app('config.%sConfig' % env.capitalize())
 port = int(os.getenv('PORT', '3000'))
 jwt = JWTManager(app)
 
