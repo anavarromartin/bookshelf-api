@@ -42,9 +42,12 @@ flask test
 cd ..
 
 cp -rf ../resource-gist-dev/.git ../updated-gist/.git
-zip -r ../bookshelf-api.zip ./web_app
 
-cd ..
+cd web_app
+
+zip -r ../../bookshelf-api.zip .
+
+cd ../..
 
 mv bookshelf-api.zip updated-gist
 
