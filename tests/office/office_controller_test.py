@@ -12,7 +12,7 @@ from web_app.office.models import Office
 
 class OfficeControllerTest(unittest.TestCase):
     def setUp(self):
-        app = create_app('web_app.config.TestConfig')
+        app = create_app('config.TestConfig')
         self.app = JWTManager(app)
         with app.test_request_context():
             self.access_token = create_access_token('test')

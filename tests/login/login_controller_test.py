@@ -6,7 +6,7 @@ from flask_jwt_extended import JWTManager
 
 class LoginControllerTest(unittest.TestCase):
     def setUp(self):
-        app = create_app('web_app.config.TestConfig')
+        app = create_app('config.TestConfig')
         self.app = JWTManager(app)
         self.client = app.test_client()
         db.app = app
